@@ -1,6 +1,6 @@
 # Courses Recordings Scraper
 
-Use this to get the links of all recordings within a Courses course.
+Use this to get the links of all recordings within a Courses (Moodle) course.
 
 ## Installing
 
