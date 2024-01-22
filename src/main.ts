@@ -24,7 +24,13 @@ const sessions = await page.$$eval(
       .filter(Boolean) as string[],
 );
 const course = await page.$eval(courseSelector, (element) => element.title);
+const courseFileName = course.replaceAll(/[\\/]/gu, '');
 const log: string[] = [];
+
+await page.screenshot({
+  fullPage: true,
+  path: `output/${courseFileName}.png`,
+});
 
 for (const session of sessions) {
   await page.goto(session);
@@ -62,8 +68,4 @@ if (!existsSync('output')) {
   await mkdir('output');
 }
 
-await writeFile(
-  `output/${course.replaceAll(/[\\/]/gu, '')}.txt`,
-  log.join('\n'),
-  { flag: 'w' },
-);
+await writeFile(`output/${courseFileName}.txt`, log.join('\n'), { flag: 'w' });
