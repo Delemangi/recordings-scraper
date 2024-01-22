@@ -61,7 +61,7 @@ for (const session of sessions) {
   for (const link of links) {
     await page.goto(link);
 
-    log.push(`${title}: ${page.url()}`);
+    log.push(`${title?.trim()},${page.url()}`);
   }
 }
 
@@ -71,4 +71,10 @@ if (!existsSync('output')) {
   await mkdir('output');
 }
 
-await writeFile(`output/${courseFileName}.txt`, log.join('\n'), { flag: 'w' });
+await writeFile(
+  `output/${courseFileName}.csv`,
+  'name,link\n' + log.join('\n'),
+  {
+    flag: 'w',
+  },
+);
