@@ -23,8 +23,11 @@ const sessions = await page.$$eval(
       .map((element) => element.parentElement?.getAttribute('href'))
       .filter(Boolean) as string[],
 );
-const course = await page.$eval(courseSelector, (element) => element.title);
-const courseFileName = course.replaceAll(/[\\/]/gu, '');
+const course = await page.$eval(
+  courseSelector,
+  (element) => element.textContent ?? 'Unknown',
+);
+const courseFileName = course.replaceAll(/[\\/]/gu, '-');
 const log: string[] = [];
 
 await page.screenshot({
