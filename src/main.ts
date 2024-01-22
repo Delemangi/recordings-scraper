@@ -1,58 +1,20 @@
+import { cookies, url } from './config.js';
+import { logger } from './logger.js';
+import {
+  courseSelector,
+  sessionSelector,
+  tableSelector,
+  titleSelector,
+} from './selectors.js';
 import { existsSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { launch } from 'puppeteer';
-import { createLogger, format, transports } from 'winston';
-
-const sessionSelector =
-  'a > img[src^="https://courses.finki.ukim.mk/theme/image.php/classic/bigbluebuttonbn/"]';
-const tableSelector = 'table.generaltable';
-const titleSelector = 'div[role="main"] > h3';
-const courseSelector = 'ol.breadcrumb > li:nth-child(3) > a';
-const logger = createLogger({
-  transports: [
-    new transports.Console({
-      format: format.combine(
-        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        format.errors({ stack: true }),
-        format.colorize({
-          colors: {
-            debug: 'gray',
-            error: 'red',
-            http: 'blue',
-            info: 'green',
-            silly: 'magenta',
-            verbose: 'cyan',
-            warn: 'yellow',
-          },
-        }),
-        format.printf(
-          ({ level, message, timestamp }) =>
-            `${timestamp} - ${level}: ${message}`,
-        ),
-      ),
-      handleExceptions: true,
-      level: 'info',
-    }),
-  ],
-});
-
-const [cookie, url] = process.argv.slice(2);
-
-if (cookie === undefined || url === undefined) {
-  throw new Error('Missing cookie or url');
-}
-
-const cookies = {
-  domain: 'courses.finki.ukim.mk',
-  name: 'MoodleSession',
-  value: cookie,
-};
 
 const browser = await launch({ headless: false });
 const page = await browser.newPage();
 
 await page.setCookie(cookies);
-await page.goto(url);
+await page.goto(url as string);
 
 const sessions = await page.$$eval(
   sessionSelector,
@@ -88,10 +50,6 @@ for (const session of sessions) {
   logger.info(`Found ${links.length} recordings in ${title}`);
 
   for (const link of links) {
-    if (link === undefined || link === null) {
-      continue;
-    }
-
     await page.goto(link);
 
     log.push(`${title}: ${page.url()}`);
