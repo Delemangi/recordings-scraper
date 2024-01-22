@@ -3,12 +3,14 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "checkJs": true,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": true,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
-      "DOM",
-      "ESNext"
+      "ESNext",
+      "DOM"
     ],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -22,6 +24,6 @@
     "outDir": "dist",
     "resolveJsonModule": true,
     "strict": true,
-    "target": "ESNext"
+    "target": "ESNext",
   }
 }
