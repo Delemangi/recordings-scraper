@@ -10,7 +10,7 @@
   "description": "Courses recordings scraper",
   "devDependencies": {
     "eslint": "^8.57.0",
-    "eslint-config-canonical": "^42.8.2",
+    "eslint-config-canonical": "^43.0.11",
     "husky": "^9.0.11",
     "rimraf": "^5.0.7",
     "typescript": "^5.4.5"
