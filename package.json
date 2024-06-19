@@ -4,7 +4,7 @@
     "url": "https://github.com/Delemangi/recordings-scraper/issues"
   },
   "dependencies": {
-    "puppeteer": "^22.11.1",
+    "puppeteer": "^22.11.2",
     "winston": "^3.13.0"
   },
   "description": "Courses recordings scraper",
