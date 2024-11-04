@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "puppeteer": "^22.15.0",
-    "winston": "^3.15.0"
+    "winston": "^3.16.0"
   },
   "description": "Courses recordings scraper",
   "devDependencies": {
