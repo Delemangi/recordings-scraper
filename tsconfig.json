@@ -24,6 +24,10 @@
     "outDir": "dist",
     "resolveJsonModule": true,
     "strict": true,
-    "target": "ESNext",
-  }
+    "target": "ESNext"
+  },
+  "exclude": [
+    "eslint.config.js",
+    "dist"
+  ]
 }
