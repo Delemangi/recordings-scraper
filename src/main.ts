@@ -1,4 +1,8 @@
-import { cookies, url } from './config.js';
+import { existsSync } from 'node:fs';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { launch } from 'puppeteer';
+
+import { getConfiguration } from './config.js';
 import { logger } from './logger.js';
 import {
   courseSelector,
@@ -6,22 +10,19 @@ import {
   tableSelector,
   titleSelector,
 } from './selectors.js';
-import { existsSync } from 'node:fs';
-import { mkdir, writeFile } from 'node:fs/promises';
-import { launch } from 'puppeteer';
+
+const { cookies, url } = getConfiguration();
 
 const browser = await launch({ headless: false });
 const page = await browser.newPage();
 
-await page.setCookie(cookies);
-await page.goto(url as string);
+await browser.setCookie(cookies);
+await page.goto(url);
 
-const sessions = await page.$$eval(
-  sessionSelector,
-  (elements) =>
-    elements
-      .map((element) => element.parentElement?.getAttribute('href'))
-      .filter(Boolean) as string[],
+const sessions = await page.$$eval(sessionSelector, (elements) =>
+  elements
+    .map((e) => e.parentElement?.getAttribute('href'))
+    .filter((e) => e !== null && e !== undefined),
 );
 const course = await page.$eval(
   courseSelector,
@@ -44,12 +45,10 @@ for (const session of sessions) {
   );
   let links: string[];
   try {
-    links = await page.$eval(
-      tableSelector,
-      (table) =>
-        Array.from(table.querySelectorAll('a'))
-          .map((element) => element.dataset['href'])
-          .filter(Boolean) as string[],
+    links = await page.$eval(tableSelector, (table) =>
+      Array.from(table.querySelectorAll('a'))
+        .map((e) => e.dataset['href'])
+        .filter((e) => e !== undefined),
     );
   } catch {
     logger.info(`${title} has no recordings`);
@@ -73,7 +72,7 @@ if (!existsSync('output')) {
 
 await writeFile(
   `output/${courseFileName}.csv`,
-  'name,link\n' + log.join('\n'),
+  `name,link\n${log.join('\n')}`,
   {
     flag: 'w',
   },
