@@ -4,7 +4,7 @@
     "url": "https://github.com/Delemangi/recordings-scraper/issues"
   },
   "dependencies": {
-    "puppeteer": "^24.6.0",
+    "puppeteer": "^24.6.1",
     "winston": "^3.17.0",
     "zod": "^3.24.2"
   },
