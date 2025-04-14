@@ -4,7 +4,7 @@ Use this to get the links of all recordings within a Courses (Moodle) course, an
 
 ## Installing
 
-1. `git clone git@github.com:Delemangi/courses-recordings-scraper.git`
+1. `git clone git@github.com:finki-hub/courses-recordings-scraper.git`
 2. `npm i`
 3. `npm run build`
 
