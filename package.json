@@ -4,17 +4,17 @@
     "url": "https://github.com/Delemangi/recordings-scraper/issues"
   },
   "dependencies": {
-    "puppeteer": "^24.4.0",
+    "puppeteer": "^24.6.1",
     "winston": "^3.17.0",
     "zod": "^3.24.2"
   },
   "description": "Courses recordings scraper",
   "devDependencies": {
-    "eslint": "^9.23.0",
+    "eslint": "^9.24.0",
     "eslint-config-imperium": "^2.2.0",
     "husky": "^9.1.7",
     "rimraf": "^6.0.1",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.3"
   },
   "engines": {
     "node": "^20 || ^22"
